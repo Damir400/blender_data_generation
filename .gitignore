@@ -1,0 +1,14 @@
+# Python
+*.pyc
+__pycache__
+/dist/
+
+# Resources
+*/[Rr]enders/
+*/[Rr]ender*/
+*v.blend
+*.blend[1-9]
+
+# VS Code
+/.vscode
+
