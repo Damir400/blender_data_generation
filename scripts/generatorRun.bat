@@ -1,0 +1,1 @@
+blender -b ./scenes/Car.blend -P ./scripts/generator.py -y -s 1 -e 2 -a
