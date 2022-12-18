@@ -37,9 +37,13 @@ class DatasetLicense:
 
 
 class ObjectCategory:
-    id = 0
-    name = ''
-    supercategory = ''
+    def __init__(self, 
+                 id: int,
+                 name: str,
+                 supercategory: str = None):
+        self.id = id
+        self.name = name
+        self.supercategory = supercategory
 
 
 class ImageInfo:

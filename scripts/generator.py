@@ -49,12 +49,15 @@ imagesAnnotations = []
 dataset = DS.DatasetAnnotation()
 dataset.info = DS.DatasetInfo()
 dataset.licenses.append(DS.DatasetLicense(1, 'MIT'))
+dataset.categories.append(DS.ObjectCategory(1, 'scratch'))
+dataset.categories.append(DS.ObjectCategory(2, 'rust'))
 
+H.writeAnnotations(annotationsFilepath, H.toJson(dataset, DS.AnnotationsJsonEncoder))
 
 
 def frame_change_handler(scene):
     damageBbox = H.cameraViewBounds2d(curScene, curCamera, curObject)
-    imagesAnnotations.append(damageBbox)
+    # imagesAnnotations.append(damageBbox)
 
     H.writeAnnotations(annotationsFilepath, H.toJson(dataset, DS.AnnotationsJsonEncoder))
     print(damageBbox)
