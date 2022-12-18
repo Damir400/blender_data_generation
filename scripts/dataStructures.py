@@ -9,13 +9,6 @@ class AnnotationsJsonEncoder(JSONEncoder):
 
 
 class DatasetInfo:
-    year = 0
-    version = ''
-    description = ''
-    contributor = ''
-    url = ''
-    date_created = ''
-
     def __init__(self, 
                  year=datetime.now().year,
                  version='1.0.0', 
