@@ -15,8 +15,8 @@ if not dir in sys.path:
     sys.path.append(dir)
 
 print(f'Импорт модуля "helper.py"...')
-import helper
-importlib.reload(helper)
+import helper as H
+importlib.reload(H)
 
 print(f'Импорт модуля "blenderConfig.py"...')
 import blenderConfig
@@ -29,8 +29,8 @@ importlib.reload(DS)
 print(f'Попытка включения GPU для процесса рендеринга...')
 blenderConfig.enableGPUs("CUDA")
 
-dirs = helper.getDirs()
-helper.createDirs(dirs)
+dirs = H.getDirs()
+H.createDirs(dirs)
 C = bpy.context
 
 
@@ -38,6 +38,7 @@ print(f'\nУстановка пути сохранения результата 
 C.scene.render.filepath = f'{dirs["curImagesDir"]}/img_'
 print(f'\t путь: {dirs["curImagesDir"]}/img_')
 
+annotationsFilepath = H.getAnnotationsFilepath(dirs['curRendersDir'])
 
 curScene = C.scene
 curCamera = C.scene.camera
@@ -45,13 +46,16 @@ curObject = C.scene.objects['Scratch_002']
 
 imagesAnnotations = []
 
-
+dataset = DS.DatasetAnnotation()
+dataset.info = DS.DatasetInfo()
 
 
 
 def frame_change_handler(scene):
-    damageBbox = helper.cameraViewBounds2d(curScene, curCamera, curObject)
+    damageBbox = H.cameraViewBounds2d(curScene, curCamera, curObject)
     imagesAnnotations.append(damageBbox)
+
+    H.writeAnnotations(annotationsFilepath, H.toJson(dataset, DS.AnnotationsJsonEncoder))
     print(damageBbox)
 
 

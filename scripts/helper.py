@@ -1,7 +1,7 @@
 from datetime import datetime 
 import os
 import bpy
-
+import json
 
 
 rendersStr  = 'renders'
@@ -12,12 +12,21 @@ masksStr    = 'masks'
 
 imgSubName      = 'img_'
 maskSubName     = 'mask_'
-annotationsSubName  = 'annotations_'
+annotationsName  = 'annotations'
+annotationsExt  = '.json'
 
 datetimeFormat = '%Y.%m.%d_%H.%M.%S'
 
 
 
+def toJson(obj, cls):
+    return json.dumps(obj, indent=4, cls=cls)
+
+
+def writeAnnotations(filepath: str, data: str):
+    annotationsFile = open(filepath, 'w+')
+    annotationsFile.write(data)
+    annotationsFile.close()
 
 
 def getDirs():
@@ -34,13 +43,13 @@ def getDirs():
     
     print(f'')
     print(f'Получение путей директорий:...')
-    print(f'\t проект:                      {rootDir}')
-    print(f'\t все результаты генератора:   {rendersDir}')
-    print(f'\t скрипты:                     {scriptsDir}')
-    print(f'\t сцены:                       {scenesDir}')
-    print(f'\t текущий запуска генератора:  {curRendersDir}')
-    print(f'\t\t изображения:               {curImagesDir}')
-    print(f'\t\t маски:                     {curMasksDir}')
+    print(f'  1) проект:                      {rootDir}')
+    print(f'  2) все результаты генератора:   {rendersDir}')
+    print(f'  3) скрипты:                     {scriptsDir}')
+    print(f'  4) сцены:                       {scenesDir}')
+    print(f'  5) текущий запуска генератора:  {curRendersDir}')
+    print(f'    a) изображения:               {curImagesDir}')
+    print(f'    b) маски:                     {curMasksDir}')
     
     print(f'')
 
@@ -54,6 +63,12 @@ def getDirs():
         'curMasksDir': curMasksDir,
     }
 
+
+def getAnnotationsFilepath(curRendersDir: str):
+    curAnnotationsFilepath = os.path.join(curRendersDir, f'{annotationsName}{annotationsExt}')
+    print(f'Путь к файлу с аннотациями: {curAnnotationsFilepath}')
+    
+    return curAnnotationsFilepath
 
 
 def getCurrentRendersDir(rendersDir: str,

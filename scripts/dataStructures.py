@@ -1,3 +1,13 @@
+from datetime import datetime
+import json
+from json import JSONEncoder
+
+
+class AnnotationsJsonEncoder(JSONEncoder):
+    def default(self, obj):
+        return obj.__dict__
+
+
 class DatasetInfo:
     year = 0
     version = ''
@@ -5,6 +15,21 @@ class DatasetInfo:
     contributor = ''
     url = ''
     date_created = ''
+
+    def __init__(self, 
+                 year=datetime.now().year,
+                 version='1.0.0', 
+                 description='Training Dataset', 
+                 contributor='ML Engineer', 
+                 url='', 
+                 date_created=datetime.now().strftime('%d-%m-%Y')):
+        self.year = year
+        self.version = version
+        self.description = description
+        self.contributor = contributor
+        self.url = url
+        self.date_created = date_created
+
 
 
 class Datasetlicense:
