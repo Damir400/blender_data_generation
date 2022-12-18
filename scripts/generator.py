@@ -48,6 +48,7 @@ imagesAnnotations = []
 
 dataset = DS.DatasetAnnotation()
 dataset.info = DS.DatasetInfo()
+dataset.licenses.append(DS.DatasetLicense(1, 'MIT'))
 
 
 

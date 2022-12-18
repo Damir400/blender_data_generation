@@ -8,6 +8,7 @@ class AnnotationsJsonEncoder(JSONEncoder):
         return obj.__dict__
 
 
+
 class DatasetInfo:
     def __init__(self, 
                  year=datetime.now().year,
@@ -25,10 +26,14 @@ class DatasetInfo:
 
 
 
-class Datasetlicense:
-    id = 0
-    name = ''
-    url = ''
+class DatasetLicense:
+    def __init__(self, 
+                 id: int,
+                 name: str,
+                 url = ''):
+        self.id = id
+        self.name = name
+        self.url = url
 
 
 class ObjectCategory:
@@ -77,4 +82,12 @@ class DatasetAnnotation:
     # список аннотаций каждого отдельного объекта из каждого изображения 
     # в наборе данных.
     annotations = []
+
+    def __init__(self):
+        self.info = ''
+        self.licenses = []
+        self.categories = []
+        self.images = []
+        self.annotations = []
+
 
