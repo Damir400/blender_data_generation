@@ -1,1 +1,1 @@
-blender -b ./scenes/Car_001v.blend -P ./scripts/generator.py -y -s 1 -e 2 
+blender -b ./scenes/Car_001v.blend -P ./scripts/generator.py -y -s 1 -e 2 -a
