@@ -4,6 +4,9 @@ import bpy
 import json
 
 
+imgWidth = 1500
+imgHeight = 1500
+
 rendersStr  = 'renders'
 scriptsStr  = 'scripts'
 scenesStr   = 'scenes'
@@ -32,14 +35,14 @@ def writeAnnotations(filepath: str, data: str):
 def getDirs():
 
     rootDir = os.getcwd()
-    rendersDir = os.path.join(rootDir, f'{rendersStr}/')
-    scriptsDir = os.path.join(rootDir, f'{scriptsStr}/')
-    scenesDir = os.path.join(rootDir, f'{scenesStr}/')
+    rendersDir = os.path.normpath(os.path.join(rootDir, f'{rendersStr}/'))
+    scriptsDir = os.path.normpath(os.path.join(rootDir, f'{scriptsStr}/'))
+    scenesDir = os.path.normpath(os.path.join(rootDir, f'{scenesStr}/'))
     curRendersDir = getCurrentRendersDir(rendersDir = rendersDir,
                                          rendersFolderName = f'{rendersStr}_',
                                          datetimeFormat = datetimeFormat)
-    curImagesDir = os.path.join(curRendersDir, f'{imagesStr}/')
-    curMasksDir = os.path.join(curRendersDir, f'{masksStr}/')
+    curImagesDir = os.path.normpath(os.path.join(curRendersDir, f'{imagesStr}/'))
+    curMasksDir = os.path.normpath(os.path.join(curRendersDir, f'{masksStr}/'))
     
     print(f'')
     print(f'Получение путей директорий:...')
@@ -65,10 +68,12 @@ def getDirs():
 
 
 def getAnnotationsFilepath(curRendersDir: str):
-    curAnnotationsFilepath = os.path.join(curRendersDir, f'{annotationsName}{annotationsExt}')
-    print(f'Путь к файлу с аннотациями: {curAnnotationsFilepath}')
+    filename = f'{annotationsName}{annotationsExt}'
+    filepath = os.path.normpath(os.path.join(curRendersDir, filename))
+    print(f'Путь к файлу с аннотациями: {filepath}')
     
-    return curAnnotationsFilepath
+    return filepath
+
 
 
 def getCurrentRendersDir(rendersDir: str,

@@ -16,13 +16,19 @@ class DatasetInfo:
                  description='Training Dataset', 
                  contributor='ML Engineer', 
                  url='', 
-                 date_created=datetime.now().strftime('%d-%m-%Y')):
+                 date_created=datetime.now().strftime('%d-%m-%Y'),
+                 imgCount=0,
+                 objCount=0):
         self.year = year
         self.version = version
         self.description = description
         self.contributor = contributor
         self.url = url
         self.date_created = date_created
+        self.imgCount = imgCount
+        self.objCount = objCount
+        self.imagesRelPath = ''
+        self.masksRelPath = ''
 
 
 
@@ -47,11 +53,19 @@ class ObjectCategory:
 
 
 class ImageInfo:
-    id = 0
-    width = 0
-    height = 0
-    file_name = ''
-    license = 0
+    def __init__(self, 
+                 id: int,
+                 width: int,
+                 height: int,
+                 file_name: str,
+                 mask_name: str,
+                 license: int):
+        self.id = id
+        self.width = width
+        self.height = height
+        self.file_name = file_name
+        self.mask_name = mask_name
+        self.license = license
 
 
 # class SegmentationInfo:
@@ -64,6 +78,20 @@ class ImageAnnotation:
     segmentation = []
     area = 0.0
     bbox = []
+
+    def __init__(self,
+                 id: int,
+                 image_id: int,
+                 category_id: int,
+                 segmaentation: list = None,
+                 area: float = 0.0,
+                 bbox: list = None):
+        self.id = id 
+        self.image_id = image_id 
+        self.category_id = category_id 
+        self.segmaentation = segmaentation 
+        self.area = area 
+        self.bbox = bbox 
 
 
 class DatasetAnnotation:
